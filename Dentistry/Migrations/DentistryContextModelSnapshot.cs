@@ -43,7 +43,6 @@ namespace Dentistry.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Treatment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -53,6 +52,24 @@ namespace Dentistry.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentDate = new DateTime(2024, 5, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Consulatatie",
+                            DoctorId = 1,
+                            PatientId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentDate = new DateTime(2024, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Consultatie lunara",
+                            DoctorId = 2,
+                            PatientId = 1
+                        });
                 });
 
             modelBuilder.Entity("Dentistry.Models.Doctor", b =>
@@ -80,12 +97,29 @@ namespace Dentistry.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Specialty")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Doctors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "doc.a@gmail.com",
+                            FirstName = "Doctor",
+                            LastName = "A",
+                            PhoneNumber = "07"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "doc.b@gmail.com",
+                            FirstName = "Doctor",
+                            LastName = "B",
+                            PhoneNumber = "02"
+                        });
                 });
 
             modelBuilder.Entity("Dentistry.Models.Patient", b =>
@@ -95,6 +129,9 @@ namespace Dentistry.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -118,6 +155,28 @@ namespace Dentistry.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 30,
+                            DateOfBirth = new DateTime(1970, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "john.doe@gmail.com",
+                            FirstName = "John",
+                            LastName = "Doe",
+                            PhoneNumber = "07"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 27,
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "jane.smith@gmail.com",
+                            FirstName = "Jane",
+                            LastName = "Smith",
+                            PhoneNumber = "02"
+                        });
                 });
 
             modelBuilder.Entity("Dentistry.Models.Appointment", b =>
