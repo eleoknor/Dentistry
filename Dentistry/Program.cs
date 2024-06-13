@@ -1,10 +1,18 @@
+using Dentistry.Repository;
+using Dentistry.Repository.IRepository;
+using Dentistry.Services;
+using Dentistry.Services.IServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+
 
 // Add DbContext to the DI container
 builder.Services.AddDbContext<DentistryContext>(options =>
@@ -30,5 +38,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
 
 
